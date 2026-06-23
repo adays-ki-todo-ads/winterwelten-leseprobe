@@ -1,1 +1,744 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winterwelten – Hitze? Nein danke</title>
+<style>
+:root {
+  --ice: #eaf9ff;
+  --blue: #113b5f;
+  --dark: #071827;
+  --glass: rgba(255,255,255,.84);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #102438;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.9), transparent 22%),
+    radial-gradient(circle at 80% 15%, rgba(154,220,255,.55), transparent 25%),
+    linear-gradient(180deg, #dff7ff 0%, #f8fdff 42%, #dcefff 100%);
+  min-height: 100vh;
+}
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: rgba(255,255,255,.9);
+  font-size: 1.2rem;
+  animation: fall linear infinite;
+  pointer-events: none;
+  text-shadow: 0 0 8px rgba(80,160,220,.55);
+}
+@keyframes fall {
+  to { transform: translateY(105vh) rotate(360deg); }
+}
+header {
+  min-height: 56vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  background:
+    linear-gradient(rgba(5,30,55,.25), rgba(5,30,55,.08)),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480"><rect width="900" height="480" fill="%23bfefff"/><path d="M0 380 L160 250 L280 360 L430 190 L590 370 L720 230 L900 365 V480 H0 Z" fill="%23ffffff"/><path d="M0 410 C160 360 260 430 420 385 C590 335 700 400 900 350 V480 H0 Z" fill="%23eaf8ff"/><circle cx="735" cy="90" r="62" fill="%23fff7cf" opacity=".8"/><g stroke="%23ffffff" stroke-width="5" opacity=".75"><path d="M140 90 v70"/><path d="M105 125 h70"/><path d="M115 100 l50 50"/><path d="M165 100 l-50 50"/></g></svg>');
+  background-size: cover;
+  background-position: center;
+}
+.hero {
+  max-width: 850px;
+  padding: 2rem;
+  border-radius: 28px;
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 20px 50px rgba(20,80,120,.22);
+}
+h1 {
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  margin: 0;
+  color: var(--blue);
+  line-height: 1.05;
+}
+.subtitle {
+  margin-top: 1rem;
+  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  color: #225b82;
+}
+.controls {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(240,252,255,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(120,180,210,.4);
+  padding: .8rem;
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+button, select {
+  border: 1px solid rgba(40,100,140,.25);
+  background: white;
+  color: var(--blue);
+  padding: .72rem .95rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(20,80,120,.08);
+}
+button:hover { background: var(--ice); }
+main {
+  max-width: 980px;
+  margin: auto;
+  padding: 2rem 1rem 5rem;
+}
+.toc {
+  background: var(--glass);
+  border-radius: 24px;
+  padding: 1.2rem;
+  margin: 1rem 0 2rem;
+  box-shadow: 0 12px 34px rgba(20,80,120,.14);
+}
+.toc h2 { margin-top: 0; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: .6rem;
+}
+.toc a {
+  display: block;
+  text-decoration: none;
+  color: var(--blue);
+  background: rgba(255,255,255,.75);
+  padding: .75rem .9rem;
+  border-radius: 16px;
+}
+.chapter {
+  background: var(--glass);
+  border-radius: 28px;
+  padding: clamp(1.2rem, 3vw, 2.6rem);
+  margin: 2rem 0;
+  box-shadow: 0 15px 42px rgba(20,80,120,.14);
+  border: 1px solid rgba(255,255,255,.75);
+}
+.chapter h2 {
+  color: var(--blue);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  margin-top: 0;
+  border-bottom: 2px solid rgba(80,160,210,.25);
+  padding-bottom: .7rem;
+}
+.chapter p {
+  font-size: clamp(1.08rem, 2.4vw, 1.28rem);
+  line-height: 1.78;
+  margin: 1rem 0;
+}
+footer {
+  text-align: center;
+  padding: 2rem 1rem 4rem;
+  color: #23597c;
+}
+@media print {
+  .controls, .snowflake { display: none; }
+  header { min-height: auto; }
+  .chapter { box-shadow: none; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div id="snow"></div>
 
+<header>
+  <div class="hero">
+    <h1>Winterwelten</h1>
+    <div class="subtitle">Hitze? Nein danke</div>
+    <p>Ein Fantasy-Roman über Schnee, Sehnsucht und eine Welt, die ruft.</p>
+  </div>
+</header>
+
+<nav class="controls">
+  <button onclick="readPage()">▶ Vorlesen</button>
+  <button onclick="pauseRead()">⏸ Pause</button>
+  <button onclick="resumeRead()">▶ Weiter</button>
+  <button onclick="stopRead()">■ Stopp</button>
+  <select id="chapterSelect" onchange="jumpToChapter()">
+    <option value="">Kapitel wählen</option>
+    <option value="kapitel-1">Kapitel 1 – Die große Hitze</option><option value="kapitel-2">Kapitel 2 – Die Schneekugel</option><option value="kapitel-3">Kapitel 3 – Das erste Tor</option><option value="kapitel-4">Kapitel 4 – Das Häuschen im Schnee</option><option value="kapitel-5">Kapitel 5 – Das Tal der Schneeflocken</option><option value="kapitel-6">Kapitel 6 – Die dunklen Flocken</option><option value="kapitel-7">Kapitel 7 – Die Hüterin des Winters</option><option value="kapitel-8">Kapitel 8 – Die Entscheidung</option><option value="kapitel-9">Kapitel 9 – Die Stadt der Polarlichter</option><option value="kapitel-10">Kapitel 10 – Der Schattenkönig</option><option value="kapitel-11">Kapitel 11 – Der Ausbruch</option><option value="kapitel-12">Kapitel 12 – Das Herz des Winters</option><option value="kapitel-13">Kapitel 13 – Die Brücke zwischen den Welten</option>
+  </select>
+</nav>
+
+<main id="bookText">
+  <section class="toc">
+    <h2>Inhalt</h2>
+    <div class="toc-grid"><a href="#kapitel-1">Kapitel 1 – Die große Hitze</a>
+<a href="#kapitel-2">Kapitel 2 – Die Schneekugel</a>
+<a href="#kapitel-3">Kapitel 3 – Das erste Tor</a>
+<a href="#kapitel-4">Kapitel 4 – Das Häuschen im Schnee</a>
+<a href="#kapitel-5">Kapitel 5 – Das Tal der Schneeflocken</a>
+<a href="#kapitel-6">Kapitel 6 – Die dunklen Flocken</a>
+<a href="#kapitel-7">Kapitel 7 – Die Hüterin des Winters</a>
+<a href="#kapitel-8">Kapitel 8 – Die Entscheidung</a>
+<a href="#kapitel-9">Kapitel 9 – Die Stadt der Polarlichter</a>
+<a href="#kapitel-10">Kapitel 10 – Der Schattenkönig</a>
+<a href="#kapitel-11">Kapitel 11 – Der Ausbruch</a>
+<a href="#kapitel-12">Kapitel 12 – Das Herz des Winters</a>
+<a href="#kapitel-13">Kapitel 13 – Die Brücke zwischen den Welten</a></div>
+  </section>
+  <section class="chapter" id="kapitel-1"><h2>Kapitel 1 – Die große Hitze</h2><p>Mara saß regungslos auf ihrem Balkon und starrte auf das Thermometer.</p>
+<p>37 Grad.</p>
+<p>Schon wieder.</p>
+<p>Die Sonne hing wie ein glühender Feuerball über den Dächern der Stadt. Kein Windhauch bewegte die Luft. Selbst die Vögel schienen aufgegeben zu haben. Alles wirkte still, schwer und erschöpft.</p>
+<p>Von irgendwoher hörte sie Kinder lachen. Im Nachbargarten planschten sie in einem Pool. Die Menschen freuten sich über das schöne Wetter.</p>
+<p>Mara verstand das nicht.</p>
+<p>Sie mochte die Sonne.</p>
+<p>Sie mochte das Licht.</p>
+<p>Sie mochte die langen Tage.</p>
+<p>Aber die Hitze?</p>
+<p>Die Hitze war ihr Feind.</p>
+<p>Sie fühlte sich, als hätte jemand eine dicke Decke aus warmer Luft über die ganze Welt gelegt. Ihre Kleidung klebte auf der Haut. Jeder Schritt kostete Kraft. Selbst das Atmen fühlte sich anstrengend an.</p>
+<p>Sie nahm ihre Wasserflasche und trank einen großen Schluck.</p>
+<p>Lauwarm.</p>
+<p>Natürlich.</p>
+<p>Alles war warm.</p>
+<p>Das Wasser.</p>
+<p>Die Luft.</p>
+<p>Die Wände.</p>
+<p>Sogar der Boden unter ihren Füßen.</p>
+<p>„Ich will Winter“, murmelte sie.</p>
+<p>Schon als Kind hatte sie Schnee geliebt.</p>
+<p>Während andere Kinder vom Sommerurlaub träumten, träumte Mara von Schneeflocken. Von verschneiten Wäldern. Von kalter Luft, die in der Nase kribbelte. Von dem Geräusch, wenn man durch frischen Schnee lief.</p>
+<p>Knirsch.</p>
+<p>Knirsch.</p>
+<p>Knirsch.</p>
+<p>Allein die Erinnerung daran ließ sie lächeln.</p>
+<p>Sie schloss die Augen.</p>
+<p>Für einen Moment stellte sie sich vor, wie dicke Schneeflocken vom Himmel fielen. Wie die Welt langsam weiß wurde. Wie die Hitze verschwand.</p>
+<p>Ein kühler Wind strich über ihre Haut.</p>
+<p>Mara öffnete die Augen.</p>
+<p>Verwirrt blickte sie sich um.</p>
+<p>Der Wind war weg.</p>
+<p>Wahrscheinlich nur Einbildung.</p>
+<p>Trotzdem hatte sie ihn gespürt.</p>
+<p>Ganz deutlich.</p>
+<p>Sie stand auf und ging in ihre Wohnung.</p>
+<p>Dort war es kaum besser.</p>
+<p>Der Ventilator kämpfte tapfer gegen die Hitze, hatte aber längst verloren.</p>
+<p>Auf dem Tisch lag ein Notizbuch.</p>
+<p>Mara setzte sich und schrieb hinein:</p>
+<p>Dinge, die besser sind als Sommer</p>
+<p>1. Schnee
+2. Eis
+3. Frost
+4. Schneestürme
+5. Winterabende
+6. Kaminfeuer
+7. Heiße Schokolade
+8. Polarlichter
+9. Schneebedeckte Tannen
+10. Alles</p>
+<p>Sie betrachtete die Liste und musste lachen.</p>
+<p>Dann fiel ihr Blick auf einen leeren Platz unten auf der Seite.</p>
+<p>Nach kurzem Überlegen schrieb sie noch einen Satz dazu:</p>
+<p>Wenn es irgendwo eine Welt gäbe, in der immer Winter ist, würde ich sofort dorthin ziehen.</p>
+<p>In diesem Augenblick bewegte sich etwas auf dem Tisch.</p>
+<p>Ganz leicht.</p>
+<p>Fast unmerklich.</p>
+<p>Eine einzelne Schneeflocke landete mitten auf der Seite.</p>
+<p>Mara erstarrte.</p>
+<p>Sie starrte auf die kleine weiße Flocke.</p>
+<p>Dann schmolz sie.</p>
+<p>Ein winziger Wassertropfen blieb zurück.</p>
+<p>Langsam hob Mara den Kopf.</p>
+<p>Draußen zeigte das Thermometer noch immer 37 Grad.</p>
+<p>Doch irgendwo in ihrer Wohnung hatte gerade eine Schneeflocke existiert.</p>
+<p>Und das war unmöglich.</p></section>
+<section class="chapter" id="kapitel-2"><h2>Kapitel 2 – Die Schneekugel</h2><p>Mara hatte die halbe Nacht wach gelegen.</p>
+<p>Immer wieder dachte sie an die Schneeflocke.</p>
+<p>Eine echte Schneeflocke.</p>
+<p>Mitten im Hochsommer.</p>
+<p>Mitten in ihrer Wohnung.</p>
+<p>Sie hatte versucht, eine Erklärung zu finden.</p>
+<p>Vielleicht Staub.</p>
+<p>Vielleicht eine Feder.</p>
+<p>Vielleicht hatte sie sich alles nur eingebildet.</p>
+<p>Doch tief in ihrem Inneren wusste sie, dass das nicht stimmte.</p>
+<p>Sie hatte die Schneeflocke gesehen.</p>
+<p>Sie hatte sie schmelzen sehen.</p>
+<p>Am nächsten Morgen zeigte das Thermometer bereits um neun Uhr 29 Grad.</p>
+<p>Mara stöhnte.</p>
+<p>„Das wird wieder so ein Tag.“</p>
+<p>Sie schnappte sich ihre Tasche und beschloss, ein wenig durch die Stadt zu laufen.</p>
+<p>Vielleicht würde Bewegung helfen.</p>
+<p>Vielleicht auch nicht.</p>
+<p>Nach einer halben Stunde war sie bereits verschwitzt.</p>
+<p>Die Straßen flimmerten in der Hitze.</p>
+<p>Vor einem kleinen Platz entdeckte sie einen Flohmarkt.</p>
+<p>Normalerweise interessierte sie sich nicht besonders dafür.</p>
+<p>Heute jedoch suchte sie jede Ausrede, um nicht weiter durch die Sonne laufen zu müssen.</p>
+<p>Also schlenderte sie zwischen den Ständen hindurch.</p>
+<p>Alte Bücher.</p>
+<p>Porzellan.</p>
+<p>Schallplatten.</p>
+<p>Werkzeuge.</p>
+<p>Nichts Besonderes.</p>
+<p>Dann blieb sie stehen.</p>
+<p>Auf einem kleinen Holztisch lag eine Schneekugel.</p>
+<p>Mitten zwischen Sonnenhüten, Strandtaschen und bunten Sommerdekorationen.</p>
+<p>Die Kugel zeigte ein kleines Häuschen im Schnee.</p>
+<p>Darum standen verschneite Tannen.</p>
+<p>Ein schmaler Weg führte zur Tür.</p>
+<p>Es sah gemütlich aus.</p>
+<p>Fast so, als würde jemand dort auf Besucher warten.</p>
+<p>Mara nahm die Kugel in die Hand.</p>
+<p>Sofort durchlief sie ein angenehmer Schauer.</p>
+<p>Kühl.</p>
+<p>Nicht kalt.</p>
+<p>Einfach angenehm.</p>
+<p>Der Verkäufer bemerkte ihren Blick.</p>
+<p>„Die gefällt Ihnen wohl.“</p>
+<p>Mara nickte.</p>
+<p>„Ja. Sie fühlt sich irgendwie anders an.“</p>
+<p>Der alte Mann lächelte.</p>
+<p>„Das sagen viele.“</p>
+<p>„Viele?“</p>
+<p>„Nun ja. Die Richtigen.“</p>
+<p>Mara runzelte die Stirn.</p>
+<p>„Die Richtigen?“</p>
+<p>Der Mann antwortete nicht sofort.</p>
+<p>Stattdessen betrachtete er sie aufmerksam.</p>
+<p>„Mögen Sie den Winter?“</p>
+<p>Mara lachte.</p>
+<p>„Mehr als alles andere.“</p>
+<p>„Dann hat sie auf Sie gewartet.“</p>
+<p>„Die Schneekugel?“</p>
+<p>„Vielleicht.“</p>
+<p>Seine Augen funkelten geheimnisvoll.</p>
+<p>Mara wusste nicht, ob er scherzte oder es ernst meinte.</p>
+<p>Doch etwas an ihm wirkte seltsam.</p>
+<p>Nicht unheimlich.</p>
+<p>Eher vertraut.</p>
+<p>Als würde er ein Geheimnis kennen.</p>
+<p>„Was kostet sie?“</p>
+<p>„Für Sie?“</p>
+<p>Der alte Mann dachte kurz nach.</p>
+<p>„Ein Euro.“</p>
+<p>„Ein Euro?“</p>
+<p>„Mehr ist sie nicht wert.“</p>
+<p>Das stimmte offensichtlich nicht.</p>
+<p>Die Kugel sah alt und wertvoll aus.</p>
+<p>Trotzdem reichte Mara ihm eine Münze.</p>
+<p>Der Verkäufer nahm sie entgegen.</p>
+<p>„Behandeln Sie sie gut.“</p>
+<p>„Natürlich.“</p>
+<p>„Und wenn Sie heute Nacht Schnee sehen, haben Sie keine Angst.“</p>
+<p>Mara erstarrte.</p>
+<p>„Woher wissen Sie von der Schneeflocke?“</p>
+<p>Der Mann lächelte nur.</p>
+<p>„Manchmal findet der Winter die Menschen, die ihn brauchen.“</p>
+<p>Bevor Mara etwas erwidern konnte, rief jemand hinter ihr nach einem Preis.</p>
+<p>Für einen Moment wandte sie den Blick ab.</p>
+<p>Als sie wieder hinsah, war der Verkäufer verschwunden.</p>
+<p>Einfach weg.</p>
+<p>Der Platz hinter dem Tisch war leer.</p>
+<p>Verwirrt sah sie sich um.</p>
+<p>Doch nirgends konnte sie den alten Mann entdecken.</p>
+<p>Schließlich schüttelte sie den Kopf.</p>
+<p>Vielleicht war er einfach weitergegangen.</p>
+<p>Mit der Schneekugel in der Tasche machte sie sich auf den Heimweg.</p>
+<p>Zu Hause stellte sie die Kugel auf ihren Wohnzimmertisch.</p>
+<p>Sonnenlicht fiel durch das Fenster.</p>
+<p>Die kleine Winterlandschaft glitzerte.</p>
+<p>Mara setzte sich davor.</p>
+<p>Langsam nahm sie die Kugel in beide Hände.</p>
+<p>Dann schüttelte sie sie.</p>
+<p>Weiße Flocken wirbelten um das kleine Haus.</p>
+<p>Einmal.</p>
+<p>Zweimal.</p>
+<p>Dreimal.</p>
+<p>Sie beobachtete fasziniert, wie der künstliche Schnee langsam zu Boden sank.</p>
+<p>Plötzlich hörte sie etwas.</p>
+<p>Ganz leise.</p>
+<p>Fast wie ein Flüstern.</p>
+<p>„Komm zu uns.“</p>
+<p>Mara fuhr zusammen.</p>
+<p>Sie blickte in der Wohnung umher.</p>
+<p>Niemand.</p>
+<p>Alles war still.</p>
+<p>Dann hörte sie die Stimme erneut.</p>
+<p>Leiser.</p>
+<p>Weiter entfernt.</p>
+<p>Als würde sie aus einer anderen Welt kommen.</p>
+<p>„Komm zu uns.“</p>
+<p>Die Schneeflocken in der Kugel begannen zu leuchten.</p>
+<p>Ein bläuliches Licht erfüllte das Zimmer.</p>
+<p>Und zum ersten Mal fragte sich Mara, ob die Schneeflocke vom Vorabend vielleicht doch kein Zufall gewesen war.</p></section>
+<section class="chapter" id="kapitel-3"><h2>Kapitel 3 – Das erste Tor</h2><p>Mara konnte nicht schlafen.</p>
+<p>Die Schneekugel stand auf ihrem Nachttisch.</p>
+<p>Still.</p>
+<p>Unbeweglich.</p>
+<p>Und doch hatte sie das Gefühl, beobachtet zu werden.</p>
+<p>Immer wieder musste sie hinübersehen.</p>
+<p>Das kleine Häuschen in der Kugel wirkte anders als zuvor.</p>
+<p>Fast lebendig.</p>
+<p>Draußen war es längst dunkel geworden.</p>
+<p>Trotzdem hing die Wärme noch immer in der Luft.</p>
+<p>Mara drehte sich auf die andere Seite.</p>
+<p>Dann wieder zurück.</p>
+<p>Sie warf einen Blick auf den Wecker.</p>
+<p>02:17 Uhr.</p>
+<p>„Na toll.“</p>
+<p>Seufzend setzte sie sich auf.</p>
+<p>Vielleicht würde ein Glas Wasser helfen.</p>
+<p>Gerade als sie aufstehen wollte, bemerkte sie etwas.</p>
+<p>Die Schneekugel leuchtete.</p>
+<p>Ganz schwach.</p>
+<p>Ein sanftes blaues Licht schimmerte aus ihrem Inneren.</p>
+<p>Mara hielt den Atem an.</p>
+<p>Das Licht wurde stärker.</p>
+<p>Die Schneeflocken darin begannen sich zu bewegen.</p>
+<p>Langsam zuerst.</p>
+<p>Dann schneller.</p>
+<p>Immer schneller.</p>
+<p>Als würde ein Sturm im Inneren der Kugel toben.</p>
+<p>„Das ist unmöglich“, flüsterte Mara.</p>
+<p>Plötzlich wurde das Zimmer eiskalt.</p>
+<p>Nicht unangenehm.</p>
+<p>Sondern herrlich.</p>
+<p>Sie spürte eine Gänsehaut auf ihren Armen.</p>
+<p>Zum ersten Mal seit Wochen fühlte sich die Luft frisch an.</p>
+<p>Ein Windhauch strich durch ihr Schlafzimmer.</p>
+<p>Doch alle Fenster waren geschlossen.</p>
+<p>Die Vorhänge bewegten sich trotzdem.</p>
+<p>Die Schneekugel strahlte nun so hell wie eine kleine Lampe.</p>
+<p>Dann geschah etwas noch Seltsameres.</p>
+<p>Vor ihrem Bett erschien ein silberner Lichtpunkt.</p>
+<p>Winzig klein.</p>
+<p>Nicht größer als ein Stecknadelkopf.</p>
+<p>Mara beobachtete ihn fasziniert.</p>
+<p>Der Punkt wurde größer.</p>
+<p>Und größer.</p>
+<p>Und größer.</p>
+<p>Bis sich vor ihr ein schimmernder Kreis bildete.</p>
+<p>Ein Ring aus Eislicht.</p>
+<p>Die Luft darin begann zu flimmern.</p>
+<p>Wie Wasser.</p>
+<p>Wie ein Spiegel.</p>
+<p>Langsam erhob sich Mara.</p>
+<p>Jeder vernünftige Mensch hätte jetzt Angst gehabt.</p>
+<p>Jeder vernünftige Mensch wäre weggerannt.</p>
+<p>Doch Mara fühlte keine Angst.</p>
+<p>Nur Neugier.</p>
+<p>Und eine seltsame Vertrautheit.</p>
+<p>Als hätte sie ihr ganzes Leben auf diesen Moment gewartet.</p>
+<p>Vorsichtig trat sie näher.</p>
+<p>Im Inneren des Kreises konnte sie etwas erkennen.</p>
+<p>Schnee.</p>
+<p>Weiße Landschaften.</p>
+<p>Verschneite Bäume.</p>
+<p>Und das kleine Häuschen aus der Schneekugel.</p>
+<p>Genau das gleiche.</p>
+<p>Mara streckte langsam ihre Hand aus.</p>
+<p>Ihre Fingerspitzen berührten die Oberfläche.</p>
+<p>Sie fühlte keine Wand.</p>
+<p>Kein Glas.</p>
+<p>Keine Kälte.</p>
+<p>Ihre Hand glitt hindurch.</p>
+<p>Als würde sie durch Wasser tauchen.</p>
+<p>Erschrocken zog sie sie zurück.</p>
+<p>Doch auf ihrer Haut blieb etwas liegen.</p>
+<p>Eine Schneeflocke.</p>
+<p>Echt.</p>
+<p>Kalt.</p>
+<p>Wunderschön.</p>
+<p>Mara lächelte.</p>
+<p>„Also gut.“</p>
+<p>Sie zog ihre Hausschuhe an.</p>
+<p>Dann musste sie lachen.</p>
+<p>„Falls ich in eine magische Winterwelt reise, brauche ich bestimmt keine Hausschuhe.“</p>
+<p>Sie stellte sie wieder neben das Bett.</p>
+<p>Noch einmal blickte sie in ihr Zimmer.</p>
+<p>Alles war wie immer.</p>
+<p>Der Schrank.</p>
+<p>Das Regal.</p>
+<p>Der Wecker.</p>
+<p>Die alte Lampe.</p>
+<p>Ihr gewohntes Leben.</p>
+<p>Dann wandte sie sich dem Tor zu.</p>
+<p>Langsam setzte sie einen Fuß hindurch.</p>
+<p>Nichts geschah.</p>
+<p>Also folgte der zweite.</p>
+<p>Ein kalter Wind umfing sie.</p>
+<p>Der Duft von Schnee lag in der Luft.</p>
+<p>Tannen.</p>
+<p>Frost.</p>
+<p>Winter.</p>
+<p>Echter Winter.</p>
+<p>Mara machte einen weiteren Schritt.</p>
+<p>Und noch einen.</p>
+<p>Das silberne Licht verschluckte sie.</p>
+<p>Für einen Augenblick wurde alles weiß.</p>
+<p>Dann stand sie auf einer verschneiten Lichtung.</p>
+<p>Mara blieb sprachlos stehen.</p>
+<p>Vor ihr erstreckte sich ein Wald aus schneebedeckten Tannen.</p>
+<p>Der Himmel glitzerte voller Sterne.</p>
+<p>Am Horizont tanzten grüne und blaue Polarlichter.</p>
+<p>Leise fielen Schneeflocken vom Himmel.</p>
+<p>Die Luft war klar und frisch.</p>
+<p>Nicht eisig.</p>
+<p>Genau richtig.</p>
+<p>Mara atmete tief ein.</p>
+<p>Dann noch einmal.</p>
+<p>Und noch einmal.</p>
+<p>Sie schloss die Augen.</p>
+<p>Zum ersten Mal seit langer Zeit fühlte sie sich vollkommen glücklich.</p>
+<p>Kein Schwitzen.</p>
+<p>Keine drückende Hitze.</p>
+<p>Keine Erschöpfung.</p>
+<p>Nur Ruhe.</p>
+<p>Als sie die Augen wieder öffnete, bemerkte sie Spuren im Schnee.</p>
+<p>Frische Fußspuren.</p>
+<p>Jemand war hier gewesen.</p>
+<p>Oder war vielleicht noch hier.</p>
+<p>Die Spuren führten in Richtung des kleinen Häuschens.</p>
+<p>Genau jenes Häuschens, das sie bereits aus der Schneekugel kannte.</p>
+<p>Aus dem Schornstein stieg Rauch auf.</p>
+<p>Und im Fenster brannte warmes Licht.</p>
+<p>Mara schluckte.</p>
+<p>Sie war nicht allein.</p>
+<p>Irgendjemand wartete dort auf sie.</p></section>
+<section class="chapter" id="kapitel-4"><h2>Kapitel 4 – Das Häuschen im Schnee</h2><p>Mara folgte den Fußspuren.</p>
+<p>Der Schnee knirschte leise unter ihren Schuhen.</p>
+<p>Knirsch. Knirsch. Knirsch.</p>
+<p>Allein dieses Geräusch machte sie glücklich.</p>
+<p>Die Luft war klar und frisch. Jeder Atemzug fühlte sich an, als würde er ihre Gedanken reinigen.</p>
+<p>Vor ihr lag das kleine Häuschen. Genau wie in der Schneekugel. Vielleicht sogar noch schöner.</p>
+<p>Die Fenster strahlten warmes Licht aus. Auf dem Dach lag eine dicke Schneeschicht. Aus dem Schornstein stieg Rauch auf, der sich langsam in der kalten Nacht verlor.</p>
+<p>Mara blieb vor der Tür stehen. Ihr Herz klopfte schneller.</p>
+<p>Noch bevor sie klopfen konnte, öffnete sich die Tür von selbst.</p>
+<p>Ein warmer Lichtschein fiel hinaus in den Schnee.</p>
+<p>„Du bist spät dran.“</p>
+<p>In der Tür stand eine ältere Frau. Sie hatte lange silberweiße Haare, die wie frischer Schnee glänzten. Ihre hellblauen Augen wirkten freundlich und gleichzeitig uralt.</p>
+<p>„Ähm ... Hallo?“</p>
+<p>Die Frau lächelte.</p>
+<p>„Hallo, Mara.“</p>
+<p>Mara erstarrte.</p>
+<p>„Woher kennen Sie meinen Namen?“</p>
+<p>„Wir haben auf dich gewartet.“</p>
+<p>„Wir?“</p>
+<p>„Komm erst einmal herein. Du bist sicher müde.“</p>
+<p>Das Innere des Hauses war gemütlich. Ein Kamin knisterte. An den Wänden hingen Bilder von verschneiten Landschaften. Auf einem Tisch standen zwei Tassen mit dampfendem Kakao.</p>
+<p>„Wo bin ich?“, fragte Mara.</p>
+<p>„In Winterwelt.“</p>
+<p>„Und das hier ist echt?“</p>
+<p>„So echt wie deine Welt.“</p>
+<p>Die Frau hieß Elara. Sie zeigte Mara ein Buch mit dem Titel „Die Suchenden des Winters“. Darin standen Namen von Menschen, die den Ruf des Winters gehört hatten.</p>
+<p>Dann ertönte draußen ein Heulen. Im Schnee vor dem Haus stand ein schneeweißer Fuchs. Sein Fell glitzerte im Mondlicht wie Eis.</p>
+<p>„Das ist Nival“, sagte Elara.</p>
+<p>Mara hörte plötzlich eine Stimme direkt in ihrem Kopf.</p>
+<p>„Willkommen in Winterwelt, Mara. Wir haben lange auf dich gewartet.“</p>
+<p>Vor Schreck verschüttete sie beinahe ihren Kakao.</p>
+<p>Und plötzlich wurde ihr klar: Die eigentlichen Wunder hatten gerade erst begonnen.</p></section>
+<section class="chapter" id="kapitel-5"><h2>Kapitel 5 – Das Tal der Schneeflocken</h2><p>Mara saß noch immer mit ihrer Tasse Kakao da. Der schneeweiße Fuchs vor dem Fenster blickte sie an.</p>
+<p>Und er hatte gerade in ihrem Kopf gesprochen.</p>
+<p>„Er hat gesprochen!“</p>
+<p>Elara nickte.</p>
+<p>„Ja.“</p>
+<p>Nival kam herein und setzte sich direkt vor Mara.</p>
+<p>„Du stellst die gleichen Fragen wie alle Neulinge“, sagte seine Stimme in ihrem Kopf.</p>
+<p>Mara erschrak, doch langsam begann sie sich an die Verrücktheit dieser Welt zu gewöhnen.</p>
+<p>Elara gab ihr einen weißen Mantel mit silbernen Stickereien. Dann verließen sie das Haus.</p>
+<p>Sie wanderten durch einen Wald aus schneebedeckten Tannen. Die Polarlichter tanzten über ihnen. Nach einer Weile öffnete sich vor ihnen ein weites Tal.</p>
+<p>Millionen Schneeflocken schwebten durch die Luft. Sanft, langsam, leuchtend.</p>
+<p>„Das Tal der Schneeflocken“, sagte Elara. „Jede Schneeflocke enthält eine Erinnerung.“</p>
+<p>Mara berührte eine Flocke und sah einen kleinen Jungen, der mit seinem Vater einen Schneemann baute.</p>
+<p>Doch zwischen den hellen Flocken schwebten auch dunkle. Graue. Fast schwarze.</p>
+<p>„Diese Flocken sollten nicht hier sein“, sagte Nival.</p>
+<p>Ein kalter Wind zog durch das Tal. Die dunklen Flocken sammelten sich. Hoch über dem Tal erschien ein gewaltiger Schatten.</p>
+<p>Mara spürte Gänsehaut.</p>
+<p>Elara sagte leise: „Ein Problem, das es eigentlich nicht mehr geben dürfte.“</p>
+<p>Der Schatten verschwand.</p>
+<p>Doch Mara wusste: Ihre Reise durch Winterwelt würde gefährlicher werden, als sie geglaubt hatte.</p></section>
+<section class="chapter" id="kapitel-6"><h2>Kapitel 6 – Die dunklen Flocken</h2><p>Mara konnte die ganze Nacht nicht schlafen. Immer wieder dachte sie an den Schatten über dem Tal.</p>
+<p>Am nächsten Morgen führte Elara sie zu einem riesigen gefrorenen See. In der Mitte stand ein schwarzer Turm.</p>
+<p>„Der Turm der verlorenen Wünsche“, sagte Elara.</p>
+<p>Auf dem Eis lagen dunkle Schneeflocken. Hunderte. Vielleicht Tausende.</p>
+<p>„Jede von ihnen war einmal ein Wunsch“, erklärte Elara. „Ein Wunsch, der niemals losgelassen wurde.“</p>
+<p>Nival sagte: „Manche Menschen wünschen sich etwas so sehr, dass sie vergessen zu leben.“</p>
+<p>Der Satz traf Mara unerwartet.</p>
+<p>Plötzlich knackte der See. Unter dem Eis bewegte sich etwas Großes. Ein dunkler Schatten glitt tief unter ihnen vorbei.</p>
+<p>Ein Riss entstand. Aus der Spalte stieg Nebel auf. Dann erklang eine Stimme.</p>
+<p>„Die Hüterin ist zurückgekehrt.“</p>
+<p>Mara erstarrte.</p>
+<p>„Wer ist die Hüterin?“</p>
+<p>Doch Elara und Nival blickten beide sie an.</p>
+<p>Und plötzlich wurde Mara klar: Die Stimme hatte von ihr gesprochen.</p></section>
+<section class="chapter" id="kapitel-7"><h2>Kapitel 7 – Die Hüterin des Winters</h2><p>Mara starrte auf den Nebel über dem See.</p>
+<p>„Das kann nicht stimmen.“</p>
+<p>Elara erzählte ihr, dass Winterwelt sie nicht zufällig gefunden hatte. Die Schneeflocke, die Schneekugel, der alte Mann – alles war Teil eines Rufes.</p>
+<p>„Weil deine Seele Winterwelt bereits kennt“, sagte Elara.</p>
+<p>Schneeflocken begannen um Mara zu leuchten. Bilder erschienen. Sie sah eine junge Frau auf genau diesem See, mit einem Kristall aus Eislicht in der Hand. Es war die erste Hüterin.</p>
+<p>Die Frau sah Mara ähnlich.</p>
+<p>Dann sah Mara Dunkelheit. Schwarze Schneeflocken. Einen Schatten, der Licht und Schnee verschlang.</p>
+<p>„Die Hüterin opferte ihre Kraft, um Winterwelt zu retten“, sagte Elara.</p>
+<p>„Und der Schatten?“</p>
+<p>„Er wurde eingeschlossen.“</p>
+<p>Mara sah auf das Eis.</p>
+<p>„Unter dem See?“</p>
+<p>„Ja.“</p>
+<p>Unter dem Eis öffnete sich langsam ein einzelnes riesiges Auge aus Dunkelheit.</p>
+<p>Es blickte direkt zu Mara hinauf.</p>
+<p>Und zum ersten Mal lächelte der Schatten.</p></section>
+<section class="chapter" id="kapitel-8"><h2>Kapitel 8 – Die Entscheidung</h2><p>Mara wollte nach Hause.</p>
+<p>Sie saß am Kamin und sagte: „Ich bin keine Hüterin. Ich bin einfach nur eine Frau, die Schnee mag.“</p>
+<p>Nival lachte. „Genau deshalb hat Winterwelt dich ausgewählt.“</p>
+<p>Später stand Mara allein vor dem Haus. Über ihr tanzten Polarlichter. Sie dachte an ihre Welt, an die Hitze und die stickigen Nächte. Dann dachte sie an Winterwelt, an Schnee, Stille und das Gefühl, angekommen zu sein.</p>
+<p>Im Schnee begann ein Kristall zu leuchten. Mara hob ihn auf. Bilder durchströmten sie: Menschen, Schnee, Ruhe, Erinnerungen.</p>
+<p>Eine Stimme sagte: „Die Hüterin ist nicht die Herrscherin des Winters. Sie ist seine Beschützerin.“</p>
+<p>Mara verstand: Winterwelt war nicht nur ein Zufluchtsort. Sie war ein Geschenk.</p>
+<p>„Ich habe Angst“, flüsterte sie.</p>
+<p>Doch in ihr wuchs Mut.</p>
+<p>„Okay“, sagte sie. „Ich renne nicht weg.“</p>
+<p>Der Kristall leuchtete hell.</p>
+<p>Weit entfernt, am gefrorenen See, erklang ein tiefes Brüllen.</p>
+<p>Der Schatten hatte ihre Entscheidung gespürt.</p></section>
+<section class="chapter" id="kapitel-9"><h2>Kapitel 9 – Die Stadt der Polarlichter</h2><p>Am nächsten Morgen machten sich Mara, Elara und Nival auf den Weg zur Stadt der Polarlichter.</p>
+<p>Sie wanderten durch verschneite Wälder, über gefrorene Flüsse und durch Täler voller Kristalle. Am Abend erreichten sie einen Bergrücken.</p>
+<p>Vor ihnen lag eine gewaltige Stadt aus Eis, Licht und Schnee. Türme ragten in den Himmel. Brücken aus Kristall spannten sich zwischen ihnen. Die ganze Stadt schimmerte wie ein lebender Edelstein.</p>
+<p>Im Zentrum stand ein Palast aus Eislicht. Vor dem Eingang standen zwölf Statuen. Zwölf Hüterinnen.</p>
+<p>Die letzte Statue war unvollendet. Ihr Gesicht fehlte. Ihre Hände waren leer.</p>
+<p>„Warum ist diese Statue nicht fertig?“, fragte Mara.</p>
+<p>„Weil sie auf die nächste Hüterin wartet“, sagte Elara.</p>
+<p>Maras Kristall begann zu leuchten. Ein Lichtstrahl flog zur Statue. Bilder erschienen: frühere Hüterinnen, alte Winterwelten und tief unter dem See der Schatten.</p>
+<p>Er öffnete beide Augen.</p>
+<p>Und er wusste nun genau, wo Mara war.</p></section>
+<section class="chapter" id="kapitel-10"><h2>Kapitel 10 – Der Schattenkönig</h2><p>Im Palast der Polarlichter sah Mara die Wahrheit.</p>
+<p>Der Schatten war nicht immer ein Monster gewesen.</p>
+<p>Er hieß Arkan.</p>
+<p>Er war der erste Hüter des Winters.</p>
+<p>Mara sah ihn in einer Vision: freundlich, stark, geliebt. Doch mit den Jahren wurde er einsam. Immer mehr Besucher kamen nach Winterwelt, nicht wegen Schönheit und Ruhe, sondern aus Gier.</p>
+<p>Arkan wurde enttäuscht. Seine Sehnsucht wurde schwer. Dunkle Schneeflocken sammelten sich um ihn. Schließlich verschlang ihn die Dunkelheit.</p>
+<p>„Der Schatten war einmal der Hüter?“, fragte Mara.</p>
+<p>Elara nickte. „Ja.“</p>
+<p>„Kann man ihn retten?“</p>
+<p>„Das wissen wir nicht.“</p>
+<p>Dann bebte die Stadt. Ein Alarm hallte durch den Palast.</p>
+<p>Weit entfernt stieg eine schwarze Säule in den Himmel.</p>
+<p>Arkan brach aus.</p>
+<p>Und seine Stimme hallte durch Winterwelt:</p>
+<p>„Ich komme nach Hause.“</p></section>
+<section class="chapter" id="kapitel-11"><h2>Kapitel 11 – Der Ausbruch</h2><p>Die schwarze Säule wuchs immer höher. Ganz Winterwelt bebte.</p>
+<p>Mara, Elara und Nival rannten zum gefrorenen See. Das Eis war zerbrochen. Schwarzer Nebel stieg daraus hervor.</p>
+<p>Mitten auf dem See stand Arkan. Groß, in einen dunklen Mantel gehüllt, mit schwarzen Augen.</p>
+<p>„Winterwelt hat mich vergessen“, sagte er.</p>
+<p>Dunkle Schneeflocken fielen vom Himmel.</p>
+<p>Mara trat ihm entgegen.</p>
+<p>„Ich glaube nicht, dass du wirklich böse bist.“</p>
+<p>Arkan hielt inne. Für einen Moment wurde die Dunkelheit um ihn schwächer.</p>
+<p>Dann erschien hinter ihm etwas Riesiges. Eine Kreatur aus schwarzem Eis und Dunkelheit.</p>
+<p>Arkan drehte sich erschrocken um.</p>
+<p>„Nein.“</p>
+<p>Elara wurde blass.</p>
+<p>„Das ist die Leere.“</p>
+<p>Mara verstand: Arkan war nie der eigentliche Feind gewesen. Er war nur das Gefängnis.</p>
+<p>Und dieses Gefängnis war gerade zerbrochen.</p>
+<p>Die Leere sprach:</p>
+<p>„Endlich bin ich frei.“</p></section>
+<section class="chapter" id="kapitel-12"><h2>Kapitel 12 – Das Herz des Winters</h2><p>Die Leere verdunkelte den Himmel. Sie bestand aus Einsamkeit, Angst, Enttäuschung und allem, was Arkan verdrängt hatte.</p>
+<p>Nival sagte: „Man kann die Leere nicht besiegen.“</p>
+<p>Mara blickte zur Kreatur, zu Arkan und zu ihrem Kristall.</p>
+<p>Dann verstand sie.</p>
+<p>Alle dachten an Kampf. Aber Winterwelt hatte ihr etwas anderes gezeigt: Ruhe, Verständnis, Erinnerungen und Heilung.</p>
+<p>„Wir kämpfen gegen das Falsche“, sagte Mara.</p>
+<p>Sie ging auf die Leere zu und hob den Kristall nicht wie eine Waffe, sondern wie ein Licht.</p>
+<p>„Du gehörst dazu“, sagte sie.</p>
+<p>Die Leere erstarrte.</p>
+<p>„Du bist Schmerz. Du bist Trauer. Du bist Enttäuschung. Aber du bist auch ein Teil von Arkan.“</p>
+<p>Arkan weinte.</p>
+<p>„Es tut mir leid.“</p>
+<p>Die Dunkelheit begann zu schrumpfen. Nicht weil sie besiegt wurde, sondern weil sie endlich gesehen wurde.</p>
+<p>Die Leere löste sich auf wie Nebel im Morgenlicht.</p>
+<p>Schnee fiel vom Himmel.</p>
+<p>Arkan sank auf die Knie. Seine Augen waren wieder eisblau.</p>
+<p>„Jetzt ist es vorbei“, sagte er.</p>
+<p>Hoch über Winterwelt öffnete sich das Herz des Winters: ein Stern aus Licht.</p></section>
+<section class="chapter" id="kapitel-13"><h2>Kapitel 13 – Die Brücke zwischen den Welten</h2><p>Drei Monate waren vergangen.</p>
+<p>Winterwelt hatte sich verändert. Die Wälder leuchteten heller. Die Polarlichter tanzten jede Nacht. Die dunklen Schneeflocken waren verschwunden.</p>
+<p>Arkan lebte nun frei in einer kleinen Hütte am Rand des Nordlichtwaldes. Elara wirkte jünger. Nival war genauso frech wie immer.</p>
+<p>Winterwelt war kein bloßer Zufluchtsort mehr. Sie war eine Brücke geworden.</p>
+<p>Menschen konnten kommen, Ruhe finden, heilen und wieder zurückkehren – ohne Winterwelt auszunutzen.</p>
+<p>Am Abend versammelten sich die Bewohner in der Stadt der Polarlichter. Vor der unvollendeten Statue formte sich endlich ein Gesicht.</p>
+<p>Maras Gesicht.</p>
+<p>Alle applaudierten.</p>
+<p>Dann wurde der Kristall an Maras Hals plötzlich warm.</p>
+<p>Er leuchtete silber, blau, weiß – und dann gold.</p>
+<p>Nival stellte die Ohren auf. „Das ist neu.“</p>
+<p>Tief aus dem Norden erklang ein Geräusch wie brechendes Eis. Dort lagen die verbotenen Gebiete, die selbst Elara niemals betreten hatte.</p>
+<p>Zwischen den Polarlichtern erschien ein goldener Riss.</p>
+<p>Eine Stimme erklang, älter als Winterwelt:</p>
+<p>„Die erste Welt erwacht.“</p>
+<p>Mara sah zu Elara. Die alte Frau war blass.</p>
+<p>„Was ist die erste Welt?“</p>
+<p>Doch Elara antwortete nicht.</p>
+<p>Weit im Norden leuchteten goldene Berge auf.</p>
+<p>Die Stimme sprach erneut:</p>
+<p>„Die Hüterin wird erwartet.“</p>
+<p>Mara hielt den Kristall fest.</p>
+<p>Und tief in ihrem Herzen wusste sie:</p>
+<p>Die Geschichte von Winterwelt hatte gerade erst begonnen.</p>
+<p>Ende des ersten Bandes.</p>
+<p>Fortsetzung folgt ...</p></section>
+</main>
+
+<footer>
+  ❄ Ende des ersten Bandes – Fortsetzung folgt ... ❄
+</footer>
+
+<script>
+const snow = document.getElementById('snow');
+for (let i = 0; i < 48; i++) {
+  const flake = document.createElement('div');
+  flake.className = 'snowflake';
+  flake.textContent = ['❄','✦','❅','❆'][Math.floor(Math.random()*4)];
+  flake.style.left = Math.random() * 100 + 'vw';
+  flake.style.animationDuration = (8 + Math.random()*12) + 's';
+  flake.style.animationDelay = (-Math.random()*15) + 's';
+  flake.style.opacity = .35 + Math.random()*.6;
+  flake.style.fontSize = (.75 + Math.random()*1.4) + 'rem';
+  snow.appendChild(flake);
+}
+
+let utterance = null;
+
+function selectedChapterText() {
+  const sel = document.getElementById('chapterSelect').value;
+  if (sel) {
+    const el = document.getElementById(sel);
+    return el ? el.innerText : document.getElementById('bookText').innerText;
+  }
+  return document.getElementById('bookText').innerText;
+}
+
+function readPage() {
+  stopRead();
+  utterance = new SpeechSynthesisUtterance(selectedChapterText());
+  utterance.lang = 'de-DE';
+  utterance.rate = 0.92;
+  utterance.pitch = 1.0;
+  speechSynthesis.speak(utterance);
+}
+
+function pauseRead() { speechSynthesis.pause(); }
+function resumeRead() { speechSynthesis.resume(); }
+function stopRead() { speechSynthesis.cancel(); }
+
+function jumpToChapter() {
+  stopRead();
+  const id = document.getElementById('chapterSelect').value;
+  if (id) document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
